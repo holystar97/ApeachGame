@@ -13,8 +13,12 @@ import javax.swing.JPanel;
 
 public class ScorePanel extends JPanel {
 	private int score = 0;
+	private int level =1;
+	
 	private JLabel textLabel;
 	private JLabel scoreLabel = new JLabel(Integer.toString(score));
+	private JLabel levelimgLabel;
+	private JLabel levelLabel =new JLabel(Integer.toString(level));
 
 	public ScorePanel() {
 		//Color color = new Color());
@@ -39,6 +43,31 @@ public class ScorePanel extends JPanel {
 		scoreLabel.setSize(70, 50);
 		scoreLabel.setLocation(90, 10);
 		add(scoreLabel);
+		
+		// 레벨 
+		// 이미지 
+		levelimgLabel = new JLabel();
+		// game.setLayout(new BorderLayout());
+
+		try {
+			ImageIcon mainicon = new ImageIcon(
+					ImageIO.read(new File("./finalscore.png")));
+			levelimgLabel.setIcon(mainicon);
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		levelimgLabel.setSize(70, 50);
+		levelimgLabel.setLocation(10, 50);
+		add(levelimgLabel);
+		
+		// 레벨 표시 
+		levelLabel.setSize(70, 50);
+		levelLabel.setLocation(90, 50);
+		add(levelLabel);
+		
+		
+		
 	}
 
 	public void increase() {
@@ -46,6 +75,15 @@ public class ScorePanel extends JPanel {
 		scoreLabel.setText(Integer.toString(score));
 	}
 
+	public int getScore() {
+		return score;
+	}
+	
+	public void increaseScore() {
+		level += 1;
+		levelLabel.setText(Integer.toString(level));
+	}
+	
 	public void writeScore(String username) {
 
 		

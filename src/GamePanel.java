@@ -17,8 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-
 public class GamePanel extends JPanel {
 	private JTextField input = new JTextField(40);
 	// private JLabel text = new JLabel("타이핑 해보세요 ");
@@ -28,10 +26,11 @@ public class GamePanel extends JPanel {
 	public GameGroundPanel p = null;
 	private ImageIcon tableicon = new ImageIcon("./table.png"); // 클래스 파일이 있는 디렉터리에 이미지 파일을 두어야 함
 	private Image tableimg = tableicon.getImage();
-	private static int wordlistsize=10;
+	private static int wordlistsize = 10;
 	private Vector<Point> v = null;
 	private Vector<String> wordlist = null;
-	//public CurrentUser cuser = new CurrentUser();
+	private static int level=1;
+	// public CurrentUser cuser = new CurrentUser();
 
 	public GamePanel(ScorePanel scorePanel) {
 		this.scorePanel = scorePanel;
@@ -43,7 +42,7 @@ public class GamePanel extends JPanel {
 		// setBackground(Color.white);
 
 		try {
-			
+
 			wordlist = TextSource.loadWord("./words.txt");
 			int a = 10;
 		} catch (IOException e1) {
@@ -53,7 +52,7 @@ public class GamePanel extends JPanel {
 		wordlistsize = TextSource.wordlistsize();
 		v = new Vector<Point>(wordlistsize);
 		p.makeSnow();
-		
+
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -61,7 +60,7 @@ public class GamePanel extends JPanel {
 				GamePanel.this.removeComponentListener(this);
 			}
 		});
-		
+
 		add(new InputPanel(), BorderLayout.SOUTH);
 		input.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -72,6 +71,15 @@ public class GamePanel extends JPanel {
 						scorePanel.increase();
 						// startGame();
 						t.setText("");
+						if (scorePanel.getScore() == 100) {
+							level=2;
+							scorePanel.increaseScore();
+						}
+						if (scorePanel.getScore() == 200) {
+							level=3;
+							scorePanel.increaseScore();
+							
+						}
 					}
 				}
 			}
@@ -87,8 +95,6 @@ public class GamePanel extends JPanel {
 		scorePanel.writeScore(CurrentUser.getUsername());
 	}
 
-	
-	
 	class GameGroundPanel extends JPanel {
 		private TargetThread targetThread = null;
 		private SnowThread snowThread = null;
@@ -136,7 +142,7 @@ public class GamePanel extends JPanel {
 			// TargetThread 객체 생성 및 실행 시작
 			targetThread = new TargetThread(targetLabel);
 			targetThread.start();
-			//makeSnow();
+			// makeSnow();
 			snowThread = new SnowThread();
 			snowThread.start();
 			this.setFocusable(true);
@@ -151,7 +157,7 @@ public class GamePanel extends JPanel {
 		public void stopGame() {
 			targetThread.threadStop(true);
 			snowThread.threadStop(true);
-			
+
 		}
 
 		class TargetThread extends Thread {
@@ -202,9 +208,22 @@ public class GamePanel extends JPanel {
 			public void run() {
 				while (!stop) {
 					try {
-						Thread.sleep(300);
-						changeSnowPosition();
-						GameGroundPanel.this.repaint();
+						if(level ==1) {
+							Thread.sleep(500);
+							changeSnowPosition();
+							GameGroundPanel.this.repaint();
+						}
+						if(level ==2) {
+							Thread.sleep(100);
+							changeSnowPosition();
+							GameGroundPanel.this.repaint();
+						}
+						if(level ==3) {
+							Thread.sleep(20);
+							changeSnowPosition();
+							GameGroundPanel.this.repaint();
+						}
+						
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						return;
