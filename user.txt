@@ -1,4 +1,1 @@
-hello,24,male
-mk,23,male
-sh,25,male
-shh,255,male
+mk,24,female

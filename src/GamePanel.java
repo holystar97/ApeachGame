@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -29,7 +30,9 @@ public class GamePanel extends JPanel {
 	private static int wordlistsize = 10;
 	private Vector<Point> v = null;
 	private Vector<String> wordlist = null;
-	private static int level=1;
+	private static int level = 1;
+	// private static boolean flag = true;
+	private Circle circle;
 	// public CurrentUser cuser = new CurrentUser();
 
 	public GamePanel(ScorePanel scorePanel) {
@@ -62,25 +65,33 @@ public class GamePanel extends JPanel {
 		});
 
 		add(new InputPanel(), BorderLayout.SOUTH);
+
 		input.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				JTextField t = (JTextField) (e.getSource());
 				String inWord = t.getText();
 				for (int i = 0; i < wordlist.size(); i++) {
 					if (wordlist.get(i).equals(inWord)) {
 						scorePanel.increase();
-						// startGame();
+						if (scorePanel.getScore() == 30) {
+							level = 2;
+							scorePanel.increaseScore();
+						}
+						if (scorePanel.getScore() == 60) {
+							level = 3;
+							scorePanel.increaseScore();
+						}
+
+						if (wordlist.contains(inWord)) {
+							wordlist.remove(inWord);
+							repaint();
+							System.out.println("삭제 완료 ");
+						}
 						t.setText("");
-						if (scorePanel.getScore() == 100) {
-							level=2;
-							scorePanel.increaseScore();
-						}
-						if (scorePanel.getScore() == 200) {
-							level=3;
-							scorePanel.increaseScore();
-							
-						}
+						break;
 					}
+
 				}
 			}
 		});
@@ -107,6 +118,9 @@ public class GamePanel extends JPanel {
 		Image img = icon2.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 		ImageIcon cicon2 = new ImageIcon(changeImg);
+		// public Graphics g;
+		private Circle circle =new Circle();
+		ArrayList<Circle> circlelist = new ArrayList<Circle>();
 
 		private JLabel baseLabel = new JLabel(cicon2);
 
@@ -208,22 +222,22 @@ public class GamePanel extends JPanel {
 			public void run() {
 				while (!stop) {
 					try {
-						if(level ==1) {
+						if (level == 1) {
 							Thread.sleep(500);
 							changeSnowPosition();
 							GameGroundPanel.this.repaint();
 						}
-						if(level ==2) {
-							Thread.sleep(100);
+						if (level == 2) {
+							Thread.sleep(50);
 							changeSnowPosition();
 							GameGroundPanel.this.repaint();
 						}
-						if(level ==3) {
-							Thread.sleep(20);
+						if (level == 3) {
+							Thread.sleep(10);
 							changeSnowPosition();
 							GameGroundPanel.this.repaint();
 						}
-						
+
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						return;
@@ -260,13 +274,21 @@ public class GamePanel extends JPanel {
 			g.drawImage(tableimg, 0, 0, this.getWidth(), this.getHeight(), null);
 
 			// 눈 그리기
-			for (int i = 0; i < wordlistsize; i++) {
+			for (int i = 0; i < wordlist.size(); i++) {
+
 				Point p = v.get(i);
 				String s = wordlist.get(i);
+				circle.setX(p.x);
+				circle.setY(p.y);
+				circle.setText(s);
+				circlelist.add(circle);
 
+			}
+
+			for (int i = 0; i < circlelist.size(); i++) {
 				// Some parameters.
-				String text = s;
-				int centerX = p.x, centerY = p.y;
+				String text = circlelist.get(i).getText();
+				int centerX = circlelist.get(i).getX(), centerY = circlelist.get(i).getY();
 				int ovalWidth = 50, ovalHeight = 50;
 
 				// Draw oval
@@ -278,9 +300,9 @@ public class GamePanel extends JPanel {
 				double textWidth = fm.getStringBounds(text, g).getWidth();
 				g.setColor(Color.black);
 				g.drawString(text, (int) (centerX - textWidth / 2), (int) (centerY + fm.getMaxAscent() / 2));
-
 			}
 		}
+
 	}
 
 	class InputPanel extends JPanel {

@@ -1,2 +1,6 @@
-hello:안녕
 mk:민경
+lion:사자
+tube:오리
+neo:고양이
+peach:복숭아
+good:좋아
