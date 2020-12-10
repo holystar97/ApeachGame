@@ -1,6 +1,5 @@
-mk:민경
-lion:사자
-tube:오리
-neo:고양이
+apple:사과
 peach:복숭아
-good:좋아
+tube:오리
+lion:사자
+banana:바나나

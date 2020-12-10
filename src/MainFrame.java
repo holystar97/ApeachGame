@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -43,7 +44,7 @@ class MainFrame extends JFrame implements MouseListener {
 	            new Thread() {
 	                public void run() {
 	                    try {
-	                        //player.play();
+	                        player.play();
 	                    }
 	                    catch (Exception e) {
 	                        throw new RuntimeException(e.getMessage());
@@ -60,14 +61,15 @@ class MainFrame extends JFrame implements MouseListener {
 	public MainFrame() {
 		super("Main Page");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 800);
-		// this.setResizable(false);
+		//this.setSize(1500, 1200);
+		Dimension dim = new Dimension(1400,1200);
+		this.setPreferredSize(dim);
+		
 
 		play("peach.mp3");
 		
 		main = new JLabel();
-		// game.setLayout(new BorderLayout());
-		//main.setBounds(10, 10, 600, 600);
+
 		try {
 			ImageIcon mainicon = new ImageIcon(
 					ImageIO.read(new File("./mainp.png")));
@@ -77,6 +79,9 @@ class MainFrame extends JFrame implements MouseListener {
 			e1.printStackTrace();
 		}
 		//add(main);
+		main.setHorizontalAlignment(JLabel.CENTER);
+		main.setVerticalAlignment(JLabel.CENTER);
+		
 		add(BorderLayout.CENTER,main);
 		Container contentPane = getContentPane();
 

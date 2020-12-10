@@ -2,7 +2,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,8 +57,10 @@ public class ScoreFrame extends JFrame {
 
 		super("Score Page");
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 800);
-
+		//this.setSize(1000, 800);
+		Dimension dim = new Dimension(1400,1200);
+		this.setPreferredSize(dim);
+		
 		main = new JLabel();
 		// game.setLayout(new BorderLayout());
 		// main.setBounds(10, 10, 600, 600);
@@ -138,6 +142,8 @@ public class ScoreFrame extends JFrame {
 		}
 		model = new DefaultTableModel(data, columns);
 		table = new JTable(model);
+		table.setFont(new Font("Gothic", Font.BOLD, 35));
+		table.setRowHeight(50);
 		// create table with data
 
 		JScrollPane scrollPane = new JScrollPane(table);

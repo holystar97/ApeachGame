@@ -2,10 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -43,10 +47,13 @@ public class UserFrame extends JFrame {
 	private JTable table;
 	MemberVO membervo = null;
 	private Object[][] data;
-	private JButton btnAdd;
+	// private JButton btnAdd;
+	private JLabel addLabel;
 	private JTextField tfName;
 	private JTextField tfAge;
-	private JRadioButton rb1,rb2,rb3;
+	private Icon man;
+	private Icon women;
+	private JRadioButton rb1, rb2, rb3;
 	public CurrentUser cuser = new CurrentUser();
 
 	private Container contentPane = getContentPane();
@@ -133,6 +140,8 @@ public class UserFrame extends JFrame {
 		}
 		model = new DefaultTableModel(data, columns);
 		table = new JTable(model);
+		table.setFont(new Font("Gothic", Font.BOLD, 35));
+		table.setRowHeight(50);
 		// create table with data
 
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -179,9 +188,17 @@ public class UserFrame extends JFrame {
 		// bottomPanel.setLayout(new GridLayout(2, 1));
 		JPanel panel = new JPanel();
 		tfName = new JTextField(10);
+		tfName.setHorizontalAlignment(JTextField.CENTER);
+		tfName.setFont(tfName.getFont().deriveFont(50f));
 		tfAge = new JTextField(10);
-		rb1 = new JRadioButton("Female");
-		rb2 = new JRadioButton("male");
+		tfAge.setHorizontalAlignment(JTextField.CENTER);
+		tfAge.setFont(tfName.getFont().deriveFont(50f));
+		man =new ImageIcon("man.png");
+		rb1 = new JRadioButton("",man);
+		rb1.setName("남");
+		women =new ImageIcon("women.png");
+		rb2 = new JRadioButton("",women);
+		rb2.setName("여");
 		rb3 = new JRadioButton();
 		ButtonGroup rg = new ButtonGroup();
 		rg.add(rb1);
@@ -221,9 +238,22 @@ public class UserFrame extends JFrame {
 		bottomPanel.add(panel);
 
 		JPanel panel2 = new JPanel();
-		btnAdd = new JButton("Add");
+		// btnAdd = new JButton("Add");
+		addLabel = new JLabel();
+
+		// score.setBounds(300, 380, 250, 250);
+		try {
+			ImageIcon addicon = new ImageIcon(ImageIO.read(new File("./add.png")));
+			addLabel.setIcon(addicon);
+			// setContentPane(game);
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		// JButton btnDel = new JButton("Delete");
-		panel2.add(btnAdd);
+		panel2.add(addLabel);
 		// panel2.add(btnDel);
 		bottomPanel.add(panel2);
 		add(bottomPanel, BorderLayout.SOUTH);
@@ -235,25 +265,27 @@ public class UserFrame extends JFrame {
 
 		super("User Page");
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 800);
+		//this.setSize(1200, 800);
+		Dimension dim = new Dimension(1400,1200);
+		this.setPreferredSize(dim);
+		
+		
 		System.out.println("userframe");
 
 		ShowUser();
-		
-		btnAdd.addActionListener(new ActionListener() {
 
+		addLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 입력된 값 테이블에 추가하기
-				// 입력된 값들을 한줄 데이터 덩어리(배열)로 만들어줘야 함 ←←←				
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
 				contentPane.removeAll();
 				String[] rows = new String[3];
 				rows[0] = tfName.getText();
 				rows[1] = tfAge.getText();
 				if (rb1.isSelected())
-					rows[2] = "female";
+					rows[2] = "남";
 				else
-					rows[2] = "male";
+					rows[2] = "여";
 				model.addRow(rows); // 한줄단위로만 대입 가능하므로↑↑
 
 				// 입력후 텍스트 필드 값 제거
@@ -275,9 +307,8 @@ public class UserFrame extends JFrame {
 
 				System.out.println("회원 숫자:" + members.size());
 			}
+			
 		});
-	
-		
 
 		this.setVisible(true);
 		this.pack();
@@ -294,9 +325,11 @@ public class UserFrame extends JFrame {
 			this.age = age;
 			this.gender = gender;
 		}
+
 		public void setUsername(String username) {
-			this.name=username;
+			this.name = username;
 		}
+
 		public String getUsername() {
 			return name;
 		}

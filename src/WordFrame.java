@@ -2,10 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,7 +52,8 @@ public class WordFrame extends JFrame {
 	private Object[][] data;
 	private JTextField tfWord;
 	private JTextField tfMean;
-	private JButton btnAdd;
+	//private JButton btnAdd;
+	private JLabel addLabel;
 	private Container contentPane = getContentPane();
 
 	class JComponentTableCellRenderer implements TableCellRenderer {
@@ -60,9 +65,9 @@ public class WordFrame extends JFrame {
 	// private JLabel
 
 	public void addListener(){
-		ActionListener listener = new ActionListener() {
+		MouseListener listener = new MouseListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
 				String[] rows = new String[3];
 				rows[0] = tfWord.getText();
@@ -86,8 +91,32 @@ public class WordFrame extends JFrame {
 				System.out.println("end");
 				
 			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		};		
-		btnAdd.addActionListener(listener);
+		addLabel.addMouseListener(listener);
 	};
 	
 	
@@ -157,6 +186,8 @@ public class WordFrame extends JFrame {
 		// System.out.println(wordmap);
 		model = new DefaultTableModel(data, colNames);
 		table = new JTable(model);
+		table.setFont(new Font("Gothic", Font.BOLD, 35));
+		table.setRowHeight(50);
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		Icon redIcon = new ImageIcon("mean.png");
@@ -165,8 +196,12 @@ public class WordFrame extends JFrame {
 		Border headerBorder = UIManager.getBorder("TableHeader.cellBorder");
 
 		JLabel blueLabel = new JLabel(colNames[0], blueIcon, JLabel.CENTER);
+		//blueLabel.setFont(new Font( blueLabel.getFont().getName(),  blueLabel.getFont().getStyle(), 30));
+		//blueLabel.setPreferredSize(new Dimension(200, 200));
 		blueLabel.setBorder(headerBorder);
 		JLabel redLabel = new JLabel(colNames[1], redIcon, JLabel.CENTER);
+		//redLabel.setFont(new Font(redLabel.getFont().getName(), redLabel.getFont().getStyle(), 30));
+		//redLabel.setPreferredSize(new Dimension(200, 200));
 		redLabel.setBorder(headerBorder);
 
 		TableCellRenderer renderer = new JComponentTableCellRenderer();
@@ -190,7 +225,11 @@ public class WordFrame extends JFrame {
 
 		JPanel panel = new JPanel();
 		tfWord = new JTextField(10);
+		tfWord.setHorizontalAlignment(JTextField.CENTER);
+		tfWord.setFont(tfWord.getFont().deriveFont(50f));
 		tfMean = new JTextField(10);
+		tfMean.setHorizontalAlignment(JTextField.CENTER);
+		tfMean.setFont(tfMean.getFont().deriveFont(50f));
 
 		inputword = new JLabel();
 		// game.setLayout(new BorderLayout());
@@ -224,9 +263,21 @@ public class WordFrame extends JFrame {
 		bottomPanel.add(panel);
 
 		JPanel panel2 = new JPanel();
-		btnAdd = new JButton("Add");
-		// JButton btnDel = new JButton("Delete");
-		panel2.add(btnAdd);
+		
+		addLabel = new JLabel();
+
+		// score.setBounds(300, 380, 250, 250);
+		try {
+			ImageIcon addicon = new ImageIcon(ImageIO.read(new File("./add.png")));
+			addLabel.setIcon(addicon);
+			// setContentPane(game);
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		panel2.add(addLabel);
 		// panel2.add(btnDel);
 		bottomPanel.add(panel2);
 		add(bottomPanel, BorderLayout.SOUTH);
@@ -241,8 +292,11 @@ public class WordFrame extends JFrame {
 
 		super("Word Page");
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 800);
+		//this.setSize(1000, 800);
 
+		Dimension dim = new Dimension(1400,1200);
+		this.setPreferredSize(dim);
+		
 		contentPane = ShowWord();
 
 		// 단어 입력 , 뜻 입력 부분 과 add 부분

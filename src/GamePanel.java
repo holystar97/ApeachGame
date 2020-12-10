@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -38,9 +39,13 @@ public class GamePanel extends JPanel {
 	public GamePanel(ScorePanel scorePanel) {
 		this.scorePanel = scorePanel;
 		setLayout(new BorderLayout());
+		input.setHorizontalAlignment(JTextField.CENTER);
+	    input.setFont(input.getFont().deriveFont(50f));
+		
 		p = new GameGroundPanel();
 		p.setBackground(Color.white); // gamegroundpanel 배경 색 하얀색으로 바꾸기
-		p.setSize(500, 500); // gamegroundpanel 크기 늘리기
+		p.setSize(900, 800); // gamegroundpanel 크기 늘리기
+		
 		add(p, BorderLayout.CENTER);
 		// setBackground(Color.white);
 
@@ -147,7 +152,7 @@ public class GamePanel extends JPanel {
 				v.add(p);
 			}
 		}
-
+		
 		public void startGame() { // 이 함수가 호출될 때는 이미 스윙 프레임이 완성 출력된 상태 . 컴포넌트들의 크기가 결정된 상태
 			// 레이블의 위치 설정
 			baseLabel.setLocation(this.getWidth() / 2 - 100, this.getHeight() - 100);

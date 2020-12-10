@@ -42,6 +42,7 @@ public class ScorePanel extends JPanel {
 
 		scoreLabel.setSize(70, 50);
 		scoreLabel.setLocation(90, 10);
+		scoreLabel.setFont (scoreLabel.getFont ().deriveFont (50.0f));
 		add(scoreLabel);
 		
 		// 레벨 
@@ -50,20 +51,21 @@ public class ScorePanel extends JPanel {
 		// game.setLayout(new BorderLayout());
 
 		try {
-			ImageIcon mainicon = new ImageIcon(
-					ImageIO.read(new File("./finalscore.png")));
-			levelimgLabel.setIcon(mainicon);
+			ImageIcon levelicon = new ImageIcon(
+					ImageIO.read(new File("./level.png")));
+			levelimgLabel.setIcon(levelicon);
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		levelimgLabel.setSize(70, 50);
-		levelimgLabel.setLocation(10, 50);
+		levelimgLabel.setSize(70, 100);
+		levelimgLabel.setLocation(10, 90);
 		add(levelimgLabel);
 		
 		// 레벨 표시 
-		levelLabel.setSize(70, 50);
-		levelLabel.setLocation(90, 50);
+		levelLabel.setSize(70, 100);
+		levelLabel.setLocation(90, 70);
+		levelLabel.setFont (levelLabel.getFont ().deriveFont (50.0f));
 		add(levelLabel);
 		
 		
