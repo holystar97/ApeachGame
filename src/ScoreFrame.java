@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -38,7 +40,7 @@ import javax.swing.table.TableColumnModel;
 
 
 public class ScoreFrame extends JFrame {
-	private JLabel main;
+	private JLabel main,exit;
 	private ScoreSource scoreSource = new ScoreSource();
 	private DefaultTableModel model;
 	private JTable table;
@@ -75,6 +77,29 @@ public class ScoreFrame extends JFrame {
 		//add(main);
 
 		add(BorderLayout.NORTH,main);
+		
+		
+
+		exit = new JLabel();
+		// game.setLayout(new BorderLayout());
+		// main.setBounds(10, 10, 600, 600);
+		try {
+			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./finalscore.png")));
+			exit.setIcon(exiticon);
+			exit.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					dispose();
+				}
+			});
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// add(main);
+		exit.setBounds(1200, 0, 100, 100);
+		add(exit);
+		
+		
 		Container contentPane = getContentPane();
 
 		contentPane.setBackground(Color.white);

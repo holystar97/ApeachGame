@@ -64,7 +64,7 @@ public class ScorePanel extends JPanel {
 		
 		// 레벨 표시 
 		levelLabel.setSize(70, 100);
-		levelLabel.setLocation(90, 70);
+		levelLabel.setLocation(90, 90);
 		levelLabel.setFont (levelLabel.getFont ().deriveFont (50.0f));
 		add(levelLabel);
 		

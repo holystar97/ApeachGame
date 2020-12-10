@@ -41,7 +41,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 public class UserFrame extends JFrame {
-	private JLabel main, inputuser, inputage;
+	private JLabel main, inputuser, inputage, exit;
 	private ScoreSource scoreSource = new ScoreSource();
 	private DefaultTableModel model;
 	private JTable table;
@@ -81,6 +81,25 @@ public class UserFrame extends JFrame {
 		}
 		// add(main);
 		add(BorderLayout.NORTH, main);
+		
+		exit = new JLabel();
+		// game.setLayout(new BorderLayout());
+		// main.setBounds(10, 10, 600, 600);
+		try {
+			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./finalscore.png")));
+			exit.setIcon(exiticon);
+			exit.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					dispose();
+				}
+			});
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// add(main);
+		exit.setBounds(1200, 0, 100, 100);
+		add(exit);
 
 		contentPane.setBackground(Color.white);
 		// contentPane.setLayout(new FlowLayout());

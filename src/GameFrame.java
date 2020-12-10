@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Insets;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ import javax.swing.plaf.basic.BasicToolBarUI;
 public class GameFrame extends JFrame implements MouseListener {
 
 	private JLabel startLabel;
-	private JLabel stopLabel;
+	private JLabel stopLabel,exit,lb1,lb2;
 	private ScorePanel scorePanel = new ScorePanel();
 	private GamePanel gamePanel = new GamePanel(scorePanel);
 
@@ -36,6 +37,7 @@ public class GameFrame extends JFrame implements MouseListener {
 		setTitle("타이핑 게임 ");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1450, 900);
+		
 		//Dimension dim = new Dimension(1400,1200);
 		//this.setPreferredSize(dim);
 		startLabel = new JLabel();
@@ -67,8 +69,32 @@ public class GameFrame extends JFrame implements MouseListener {
 	   // Dimension size = startLabel.getPreferredSize();
 		//startLabel.setBounds(10, 10,size,width,size,height);
 		//stopLabel.setBounds(80, 10,stopicon.getIconWidth(),stopicon.getIconHeight());
-		startLabel.setLocation(10, 10);
-		stopLabel.setLocation(50, 10);
+		
+		
+
+		exit = new JLabel();
+		// game.setLayout(new BorderLayout());
+		// main.setBounds(10, 10, 600, 600);
+		try {
+			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./finalscore.png")));
+			exit.setIcon(exiticon);
+			exit.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					dispose();
+					scorePanel.writeScore(CurrentUser.getUsername());
+				}
+			});
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// add(main);
+		lb1 = new JLabel();
+		lb2 = new JLabel();
+		
+		//startLabel.setLocation(10, 10);
+		//stopLabel.setLocation(70, 10);
+		//exit.setLocation(140, 10);
 		
 		splitPane();
 		makeToolBar();
@@ -85,6 +111,7 @@ public class GameFrame extends JFrame implements MouseListener {
 	}
 
 	private void splitPane() {
+		
 		JSplitPane hPane = new JSplitPane();
 		getContentPane().add(hPane, BorderLayout.CENTER);
 		hPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -103,12 +130,17 @@ public class GameFrame extends JFrame implements MouseListener {
 	private void makeToolBar() {
 		JToolBar tBar = new JToolBar();
 		tBar.add(startLabel);
+		tBar.addSeparator( new Dimension(40,40));
 		tBar.add(stopLabel);
-		((BasicToolBarUI) tBar.getUI()).setFloatingLocation(300, 200);
-
+		tBar.addSeparator( new Dimension(40,40));
+		tBar.add(exit);
+		//((BasicToolBarUI) tBar.getUI()).setFloatingLocation(300, 200);
+		//tBar.setMargin(new Insets(3, 30, 3, 30));
 		//((BasicToolBarUI) tBar.getUI()).setFloating(true, null);
+		//Dimension dimension = new Dimension(40,40);
+		//tBar.addSeparator( new Dimension(40,40));
 		getContentPane().add(tBar, BorderLayout.NORTH);
-		tBar.setBounds(100,100,50,50);
+		//tBar.setBounds(100,100,50,50);
 		//startBtn.addActionListener(new StartAction());
 		startLabel.addMouseListener(new MouseAdapter() {
 			@Override

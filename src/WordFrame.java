@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -43,7 +44,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 public class WordFrame extends JFrame {
-	private JLabel main, inputword, inputmean;
+	private JLabel main, inputword, inputmean,exit;
 	ArrayList<WordVO> words = new ArrayList<WordVO>();
 	WordVO wordvo = null;
 	private TextSource textSource = new TextSource();
@@ -137,6 +138,27 @@ public class WordFrame extends JFrame {
 		add(BorderLayout.NORTH, main);
 		// Container contentPane = getContentPane();
 
+
+		exit = new JLabel();
+		// game.setLayout(new BorderLayout());
+		// main.setBounds(10, 10, 600, 600);
+		try {
+			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./finalscore.png")));
+			exit.setIcon(exiticon);
+			exit.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					dispose();
+				}
+			});
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// add(main);
+		exit.setBounds(1200, 0, 100, 100);
+		add(exit);
+		
+		
 		contentPane.setBackground(Color.white);
 		// contentPane.setLayout(new FlowLayout());
 
@@ -158,7 +180,7 @@ public class WordFrame extends JFrame {
 			while ((s = in.readLine()) != null) {
 				// 그렇게 한 줄 가져와서.. 스플릿으로 조각조각 내 준다. 파싱 기준은 공백인 \t 로 하자
 				System.out.println(s);
-				String[] split = s.split(":");
+				String[] split = s.split(":",2);
 
 				// 아래 변수들은 클래스에 선언되어 있음을 가정한다
 				word = split[0]; // 첫째 조각은 모델 코드에
