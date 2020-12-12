@@ -22,13 +22,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 class MainFrame extends JFrame implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	private JLabel main;
-	private JLabel game;
+	private JLabel game,exit;
 	private JLabel score;
 	private JLabel word;
 	private JLabel user;
@@ -68,6 +69,8 @@ class MainFrame extends JFrame implements MouseListener {
 
 		play("peach.mp3");
 		
+
+		
 		main = new JLabel();
 
 		try {
@@ -87,9 +90,11 @@ class MainFrame extends JFrame implements MouseListener {
 
 		contentPane.setBackground(Color.white);
 		//contentPane.setLayout(new GridLayout());
+	
+		JPanel subPanel = new JPanel();
+		subPanel.setLayout(new GridLayout(2,1));
+		subPanel.setBackground(Color.white);
 		
-		
-
 		game = new JLabel();
 		// game.setLayout(new BorderLayout());
 		// game.setBounds(300, 300, 250, 250);
@@ -101,8 +106,10 @@ class MainFrame extends JFrame implements MouseListener {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		add(BorderLayout.EAST,game);
+		//add(BorderLayout.EAST,game);
 
+		subPanel.add(game);
+		
 		// game.setBounds(0,0,500,500);
 		game.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -111,6 +118,31 @@ class MainFrame extends JFrame implements MouseListener {
 			}
 		});
 		// setContentPane(game);
+		
+		
+		exit = new JLabel();
+		// game.setLayout(new BorderLayout());
+		// game.setBounds(300, 300, 250, 250);
+		try {
+			ImageIcon gameicon = new ImageIcon(
+					ImageIO.read(new File("./gameexit.png")));
+			exit.setIcon(gameicon);
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		//add(BorderLayout.EAST,exit);
+
+		// game.setBounds(0,0,500,500);
+		exit.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+		// setContentPane(game);
+		subPanel.add(exit);
+		add(subPanel,BorderLayout.EAST);
 
 		score = new JLabel();
 		// game.setLayout(new BorderLayout());

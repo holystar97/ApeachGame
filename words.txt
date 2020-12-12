@@ -1,7 +1,6 @@
-mk:민경
 peach:복숭아
-apple:사과
-mango:망고
 tube:오리
-lion:사자
-merong:바보
+mango:망고
+cat:고양이
+dog:개
+hello:안녕

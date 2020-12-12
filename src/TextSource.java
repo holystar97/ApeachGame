@@ -10,7 +10,7 @@ public class TextSource {
 	private Vector<String> v = new Vector<String>();
 	// private static Vector<String> words = new Vector<String>();
 	private static HashMap<String, String> words = new HashMap<>();
-
+	public static int wordsize;
 	public TextSource() {
 
 	}

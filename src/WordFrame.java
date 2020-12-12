@@ -143,7 +143,7 @@ public class WordFrame extends JFrame {
 		// game.setLayout(new BorderLayout());
 		// main.setBounds(10, 10, 600, 600);
 		try {
-			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./finalscore.png")));
+			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./gotomain.png")));
 			exit.setIcon(exiticon);
 			exit.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
@@ -155,7 +155,7 @@ public class WordFrame extends JFrame {
 			e1.printStackTrace();
 		}
 		// add(main);
-		exit.setBounds(1200, 0, 100, 100);
+		exit.setBounds(1200, 0, 200, 70);
 		add(exit);
 		
 		

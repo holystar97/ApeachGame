@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,12 +27,15 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.plaf.basic.BasicToolBarUI;
 
+
 public class GameFrame extends JFrame implements MouseListener {
 
 	private JLabel startLabel;
 	private JLabel stopLabel,exit,lb1,lb2;
 	private ScorePanel scorePanel = new ScorePanel();
 	private GamePanel gamePanel = new GamePanel(scorePanel);
+	private GameGroundPanel gamegroundpanel;
+	
 
 	GameFrame() {
 		setTitle("타이핑 게임 ");
@@ -76,14 +80,9 @@ public class GameFrame extends JFrame implements MouseListener {
 		// game.setLayout(new BorderLayout());
 		// main.setBounds(10, 10, 600, 600);
 		try {
-			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./finalscore.png")));
+			ImageIcon exiticon = new ImageIcon(ImageIO.read(new File("./gotomain.png")));
 			exit.setIcon(exiticon);
-			exit.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					dispose();
-					scorePanel.writeScore(CurrentUser.getUsername());
-				}
-			});
+			
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -104,11 +103,7 @@ public class GameFrame extends JFrame implements MouseListener {
 		
 	}
 
-	public class MyWinExit extends WindowAdapter {
-		public void windowClosing(WindowEvent we) {
-			System.exit(0);
-		}
-	}
+
 
 	private void splitPane() {
 		
@@ -146,7 +141,13 @@ public class GameFrame extends JFrame implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
+			
+				
+				//gamePanel.makeSnow();
+				//game.startGame(); // gamegroundpanel 시작
 				gamePanel.startGame();
+				//circle.startflag=true;
+				//gamegroundpanel=new GameGroundPanel();
 			}
 			
 		});
@@ -158,6 +159,15 @@ public class GameFrame extends JFrame implements MouseListener {
 				gamePanel.stopGame();
 			}
 			
+		});
+		exit.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				gamePanel.endGame();
+			
+				scorePanel.writeScore(CurrentUser.getUsername());
+				dispose();
+				//setVisible(false);
+			}
 		});
 	}
 
