@@ -33,7 +33,7 @@ class GameGroundPanel extends JPanel {
 	public ArrayList<Integer> ylist;
 	private JLabel baseLabel = new JLabel(cicon2);
 	// private int cnt = 0;
-	private BallPoint bp = new BallPoint();
+
 	private ArrayList<Integer> mk;
 
 	private ScorePanel scorePanel;
@@ -45,6 +45,7 @@ class GameGroundPanel extends JPanel {
 	private static int level = 1;
 	private static HashMap<String, String> wordlist;
 	private CircleController controller;
+	private boolean isFirstGame = true; 
 	// private JTextField input = new JTextField(40);
 
 	public GameGroundPanel(CircleController controller, GamePanel gamepanel, ScorePanel scorePanel) {
@@ -72,9 +73,11 @@ class GameGroundPanel extends JPanel {
 		circle.setFlag(false);
 		Circle.level = 1;
 	}
+	
 
 	public void startGame() { // 이 함수가 호출될 때는 이미 스윙 프레임이 완성 출력된 상태 . 컴포넌트들의 크기가 결정된 상태
 		// 레이블의 위치 설정
+		//setCircleCont();
 		if (targetThread.stop) {
 			Circle.cnt = 0;
 			Circle.life = 0;
@@ -111,6 +114,8 @@ class GameGroundPanel extends JPanel {
 		System.out.println(snowThread);
 		setFocusable(true);
 		requestFocus();
+		if(!isFirstGame)
+			init();
 
 		// String newWord = textSource.get();
 		// text.setText(newWord);
@@ -130,9 +135,9 @@ class GameGroundPanel extends JPanel {
 		// v.clear();
 		targetThread.threadStop(true);
 		snowThread.threadStop(true);
-		// circle =null;
-		// v = null;
-		// wordlist = null;
+		isFirstGame=false;
+		init();
+		
 	}
 
 	class TargetThread extends Thread {
@@ -241,7 +246,6 @@ class GameGroundPanel extends JPanel {
 	private void ballSendPosition() {
 		// System.out.println(circle.cnt);
 		// System.out.println(v);
-
 		circle = CircleController.v.get(Circle.cnt);
 		// System.out.println(circle.cnt);
 		int dir = Math.random() > 0.5 ? 1 : -1;
@@ -267,6 +271,14 @@ class GameGroundPanel extends JPanel {
 
 	}
 
+	public void init() {
+		Circle.cnt=0;
+		circle =null;
+		CircleController.v = null;
+		wordlist = null;
+	}
+	
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // JPanel의 것
@@ -274,8 +286,7 @@ class GameGroundPanel extends JPanel {
 		g.drawImage(tableimg, 0, 0, this.getWidth(), this.getHeight(), null);
 		// System.out.println(v.size());
 
-		if (CircleController.v.size() == 0) {
-
+		if (CircleController.wordlist.size() == 0) {
 			circle.setFlag(true);
 			// System.out.println("end!");
 		}
@@ -305,6 +316,7 @@ class GameGroundPanel extends JPanel {
 			g.setFont((new Font("Gothic", Font.BOLD, 25)));
 			double textWidth = fm.getStringBounds(text, g).getWidth();
 			g.drawString(text, (int) (centerX - textWidth / 2 - 35), (int) (centerY + fm.getMaxAscent() / 2));
+			//init();
 			// controller.v.clear();
 			// stopGame();
 			// System.out.println(circlelist.size());
@@ -316,6 +328,9 @@ class GameGroundPanel extends JPanel {
 			// 눈 그리기
 			// System.out.println("v.size" + v.size());
 			// System.out.println("cnt " + circle.cnt);
+			if(Circle.cnt >= CircleController.v.size()) {
+				--Circle.cnt;
+			}
 			circle = CircleController.v.get(Circle.cnt);
 			for (String key : wordlist.keySet()) {
 				// System.out.println("paint size");

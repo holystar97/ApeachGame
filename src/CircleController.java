@@ -6,7 +6,7 @@ public class CircleController {
 	public static Vector<Circle> v;
 	private TextSource textSource = new TextSource();
 	private Circle circle;
-	public HashMap<String, String> wordlist;
+	public static HashMap<String, String> wordlist;
 	
 	
 	

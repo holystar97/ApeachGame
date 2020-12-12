@@ -163,7 +163,7 @@ public class GameFrame extends JFrame implements MouseListener {
 		exit.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				gamePanel.endGame();
-			
+				
 				scorePanel.writeScore(CurrentUser.getUsername());
 				dispose();
 				//setVisible(false);

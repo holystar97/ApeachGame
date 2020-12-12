@@ -39,7 +39,7 @@ public class GamePanel extends JPanel {
 	//private static int level = 1;
 	private Circle circle;
 	private CircleController controller = new CircleController();
-	private Ball ball;
+	private static int answercnt=0;
 	// private int cnt = 0;
 	private int i = 0;
 
@@ -90,13 +90,13 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JTextField t = (JTextField) (e.getSource());
 				String inWord = t.getText();
-
+			
 				for (String key : controller.wordlist.keySet()) {
 					// System.out.println("input"+wordlist.get(key));
 					if (controller.wordlist.get(key).equals(inWord)) {
+						
 						scorePanel.increase();
 						circle.cnt++;
-
 						if (scorePanel.getScore() == 30) {
 							circle.level = 2;
 							scorePanel.increaseScore();

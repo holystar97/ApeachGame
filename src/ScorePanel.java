@@ -89,42 +89,42 @@ public class ScorePanel extends JPanel {
 		// game.setLayout(new BorderLayout());
 
 		try {
-			ImageIcon lifeicon = new ImageIcon(ImageIO.read(new File("./man.png")));
+			ImageIcon lifeicon = new ImageIcon(ImageIO.read(new File("./tubelife.png")));
 			lifeLabel1.setIcon(lifeicon);
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		lifeLabel1.setSize(70, 100);
-		lifeLabel1.setLocation(90, 270);
+		lifeLabel1.setLocation(80, 250);
 		add(lifeLabel1);
 
 		lifeLabel2 = new JLabel();
 		// game.setLayout(new BorderLayout());
 
 		try {
-			ImageIcon lifeicon = new ImageIcon(ImageIO.read(new File("./man.png")));
+			ImageIcon lifeicon = new ImageIcon(ImageIO.read(new File("./tubelife.png")));
 			lifeLabel2.setIcon(lifeicon);
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		lifeLabel2.setSize(70, 100);
-		lifeLabel2.setLocation(120, 260);
+		lifeLabel2.setLocation(130, 250);
 		add(lifeLabel2);
 
 		lifeLabel3 = new JLabel();
 		// game.setLayout(new BorderLayout());
 
 		try {
-			ImageIcon lifeicon = new ImageIcon(ImageIO.read(new File("./man.png")));
+			ImageIcon lifeicon = new ImageIcon(ImageIO.read(new File("./tubelife.png")));
 			lifeLabel3.setIcon(lifeicon);
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		lifeLabel3.setSize(70, 100);
-		lifeLabel3.setLocation(170, 260);
+		lifeLabel3.setLocation(180, 250);
 		add(lifeLabel3);
 
 	}
